@@ -22,20 +22,36 @@ package com.nimmathi.predictdaily.service.astro_core;
 import java.io.IOException;
 import java.util.function.Supplier;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.util.ResourceUtils;
-
 import swisseph.SwissEph;
 
 @Configuration
 public class EphemerisConfig {
 
-    private final String ephemerisPath;
+    // private final String ephemerisPath;
     private final ThreadLocal<SwissEph> swissEphTL;
 
+    public EphemerisConfig(
+             
+            ResourceLoader resourceLoader) throws IOException {
+
+            
+
+        String ephemerisPath =
+        System.getProperty("swisseph.path");
+
+        // SwephNative.swe_set_ephe_path(ephemerisPath);
+
+        this.swissEphTL = ThreadLocal.withInitial(() -> {
+            SwissEph sw = new SwissEph(ephemerisPath);
+            sw.swe_set_ephe_path(ephemerisPath);
+            return sw;
+        });
+    }
+
+    /*
     public EphemerisConfig(
             @Value("${astro.ephemeris.path:#{systemProperties['user.dir'] + '/ephemeris/data'}}")
             // @Value("${systemProperties['user.dir'] + '/ephemeris/data'}") 
@@ -52,6 +68,7 @@ public class EphemerisConfig {
             return sw;
         });
     }
+        */
 
     public SwissEph get() {
         return swissEphTL.get();
