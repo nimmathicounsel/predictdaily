@@ -29,6 +29,14 @@
     <properties>
         <java.version>21</java.version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>project.local</id>
+            <url>file://${project.basedir}/repo</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <!-- <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -88,8 +96,6 @@
             <groupId>com.swisseph</groupId>
             <artifactId>swisseph</artifactId>
             <version>2.01.00-02</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/libs/swisseph-2.01.00-02.jar</systemPath>
         </dependency>
 
         <dependency>
