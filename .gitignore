@@ -43,3 +43,7 @@ backend/*.jar
 # Secrets
 google-services.json
 GoogleService-Info.plist
+
+# google play store
+*.jks
+key.properties
