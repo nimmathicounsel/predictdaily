@@ -17,6 +17,8 @@
  */
 
 import 'package:PredictDaily/core/constants/app_colors.dart';
+import 'package:PredictDaily/routes/app_routes.dart';
+import 'package:PredictDaily/widgets/app_footer.dart';
 import 'package:flutter/material.dart';
 import '../settings/block_settings.dart';
 
@@ -44,9 +46,56 @@ class SettingsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: const AppHeader(title: "Settings"),
+      bottomNavigationBar: const AppFooter(),
       body: SafeArea(
         child: Column(
           children: [
+
+            Padding(
+  padding: const EdgeInsets.fromLTRB(
+    16,
+    16,
+    16,
+    4,
+  ),
+
+  child: SizedBox(
+    width: double.infinity,
+
+    child: ElevatedButton.icon(
+      icon: const Icon(Icons.home),
+
+      label: const Text(
+        "Back to Home",
+      ),
+
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.primary,
+        foregroundColor: Colors.white,
+
+        elevation: 1.5,
+
+        padding: const EdgeInsets.symmetric(
+          vertical: 14,
+        ),
+
+        shape: RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.circular(18),
+        ),
+      ),
+
+      onPressed: () {
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          AppRoutes.home,
+          (route) => false,
+        );
+      },
+    ),
+  ),
+),
+
             Expanded(
               child: ListView.builder(
                 itemCount: sections.length,

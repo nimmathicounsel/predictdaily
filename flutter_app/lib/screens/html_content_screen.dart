@@ -16,6 +16,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import 'package:PredictDaily/widgets/app_footer.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
@@ -76,6 +77,7 @@ class _HtmlContentScreenState extends State<HtmlContentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppHeader(title: title),
+      bottomNavigationBar: const AppFooter(),
       body: SafeArea(
         child: Column(
           children: [

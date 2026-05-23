@@ -19,6 +19,7 @@
 import 'package:PredictDaily/core/constants/app_colors.dart';
 import 'package:PredictDaily/core/constants/app_constants.dart';
 import 'package:PredictDaily/utils/decor.dart';
+import 'package:PredictDaily/widgets/app_footer.dart';
 import 'package:PredictDaily/widgets/app_header.dart';
 import 'package:flutter/material.dart';
 
@@ -47,6 +48,7 @@ class ExplainScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: const AppHeader(title: "Home"),
+      bottomNavigationBar: const AppFooter(),
       backgroundColor: AppColors.explainBackground,
       body: SafeArea(
         child: Column(

@@ -24,14 +24,11 @@ import 'package:PredictDaily/services/api_service.dart';
 import 'package:PredictDaily/services/bridge_service.dart';
 import 'package:PredictDaily/services/settings_service.dart';
 import 'package:PredictDaily/utils/person_convertor.dart';
+import 'package:PredictDaily/widgets/app_footer.dart';
 import 'package:PredictDaily/widgets/matrix_displayer.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/app_header.dart';
-
-import '../widgets/upi_launcher.dart';
-
-import '../widgets/app_share.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -39,9 +36,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppHeader(
-          title: "Home",
-        ),
+      appBar: const AppHeader(title: "Home"),
+      bottomNavigationBar: const AppFooter(),
       backgroundColor: AppColors.mainBackground,
       body: FutureBuilder<Map<String, dynamic>>(
         future: _loadInitialData(), // Fetches the data asynchronously
@@ -57,18 +53,11 @@ class HomeScreen extends StatelessWidget {
           }
 
           // 3. Extract data
-    final data =
-        snapshot.data ?? {};
+          final data = snapshot.data ?? {};
 
-    final starsOfPerson =
-        data["starsOfPerson"]
-            as List<String>? ??
-        [];
+          final starsOfPerson = data["starsOfPerson"] as List<String>? ?? [];
 
-    final locationInfo =
-        data["locationInfo"]
-            as LocationInfo;
-
+          final locationInfo = data["locationInfo"] as LocationInfo;
 
           List<Person> persons = PersonConvertor.convert(starsOfPerson);
 
@@ -117,136 +106,29 @@ class HomeScreen extends StatelessWidget {
           }
 
           // 5. Handle Success State (Data is present)
-          return  
-            MatrixDisplayer(
-              persons: persons,
-              bridgeService: BridgeService(apiService: ApiService()),
-              locationInfo: locationInfo
-            );
-          
+          return MatrixDisplayer(
+            persons: persons,
+            bridgeService: BridgeService(apiService: ApiService()),
+            locationInfo: locationInfo,
+          );
         },
       ),
-
-      bottomNavigationBar: SafeArea(
-
-  child: Container(
-
-    padding: const EdgeInsets.all(12),
-
-    decoration: const BoxDecoration(
-
-      color: Colors.white,
-
-      boxShadow: [
-
-        BoxShadow(
-
-          blurRadius: 8,
-
-          offset: Offset(0, -2),
-
-          color: Color.fromRGBO(
-            0,
-            0,
-            0,
-            0.08,
-          ),
-        ),
-      ],
-    ),
-
-    child: Row(
-
-      children: [
-
-        Expanded(
-
-          child: ElevatedButton.icon(
-
-            icon: const Icon(Icons.currency_rupee),
-
-            label: const Text(
-              'Donate',
-            ),
-
-            style:
-                ElevatedButton.styleFrom(
-
-              padding:
-                  const EdgeInsets.symmetric(
-                vertical: 14,
-              ),
-            ),
-
-            onPressed: () async {
-
-              await UpiLauncher
-                  .launchDonation();
-            },
-          ),
-        ),
-
-        const SizedBox(width: 12),
-
-        Expanded(
-
-          child: ElevatedButton.icon(
-
-            icon: const Icon(Icons.share),
-
-            label: const Text(
-              'Share App',
-            ),
-
-            style:
-                ElevatedButton.styleFrom(
-
-              padding:
-                  const EdgeInsets.symmetric(
-                vertical: 14,
-              ),
-            ),
-
-            onPressed: () async {
-
-              await AppShare
-                  .shareApp();
-            },
-          ),
-        ),
-      ],
-    ),
-  ),
-),
     );
   }
 
-  Future<Map<String, dynamic>>
-    _loadInitialData() async {
-  final stars =
-      await SettingsService
-          .loadStars();
+  Future<Map<String, dynamic>> _loadInitialData() async {
+    final stars = await SettingsService.loadStars();
 
-  final lat =
-      await SettingsService
-          .loadLat();
+    final lat = await SettingsService.loadLat();
 
-  final lon =
-      await SettingsService
-          .loadLon();
+    final lon = await SettingsService.loadLon();
 
-  final zone =
-      await SettingsService
-          .loadZone();
+    final zone = await SettingsService.loadZone();
 
-  return {
-    "starsOfPerson": stars,
+    return {
+      "starsOfPerson": stars,
 
-    "locationInfo": LocationInfo(
-      lat: lat,
-      lon: lon,
-      zone: zone,
-    ),
-  };
-}
+      "locationInfo": LocationInfo(lat: lat, lon: lon, zone: zone),
+    };
+  }
 }
