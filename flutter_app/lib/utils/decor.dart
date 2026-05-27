@@ -51,17 +51,31 @@ class Decor {
   }
 
   static String dateToStr(DateTime date) {
+    const dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
     const monthNames = [
-      "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
     ];
-    return "${date.day.toString().padLeft(2, '0')}-"
+
+    return "${dayNames[date.weekday - 1]}, "
+        "${date.day.toString().padLeft(2, '0')}-"
         "${monthNames[date.month - 1]}-"
         "${date.year}";
   }
 
   static String timeToStr(DateTime dt) {
-    return
-      "${dt.hour.toString().padLeft(2, '0')}:"
-      "${dt.minute.toString().padLeft(2, '0')}";
+    return "${dt.hour.toString().padLeft(2, '0')}:"
+        "${dt.minute.toString().padLeft(2, '0')}";
   }
 }

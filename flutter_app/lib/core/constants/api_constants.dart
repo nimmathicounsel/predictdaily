@@ -23,7 +23,10 @@ class ApiConstants {
 
   // static const baseUrl = "http://192.168.1.42:8080";
 
-  static const baseUrl = "https://predictdaily-production.up.railway.app";
+  // static const baseUrl = "https://predictdaily-production.up.railway.app";
+
+  static const baseUrl = "https://pd-api.nimmathi.net";
+
   
   static const String fetchUrl =
       "$baseUrl/api/predict/v1/fetch";

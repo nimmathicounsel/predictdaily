@@ -21,10 +21,12 @@ import 'package:PredictDaily/core/constants/app_constants.dart';
 import 'package:PredictDaily/utils/decor.dart';
 import 'package:PredictDaily/widgets/app_footer.dart';
 import 'package:PredictDaily/widgets/app_header.dart';
+import 'package:PredictDaily/widgets/block.dart';
 import 'package:flutter/material.dart';
 
 import '../localization/app_localization.dart';
 import '../models/prediction_block.dart';
+import '../widgets/block.dart';
 
 class ExplainScreen extends StatelessWidget {
   final PredictionBlock block;
@@ -45,6 +47,10 @@ class ExplainScreen extends StatelessWidget {
     );
 
     final translations = AppLocalization.getMap('wordTranslations');
+
+    final divideRatio = Block.calculateRatio(block);
+
+    List<bool> expander = [divideRatio >= 0.5, divideRatio < 0.5];
 
     return Scaffold(
       appBar: const AppHeader(title: "Home"),
@@ -131,7 +137,7 @@ class ExplainScreen extends StatelessWidget {
                         "${index == 0 ? 'till' : 'after'} "
                         "$timeText",
                       ),
-                      initiallyExpanded: index == 0,
+                      initiallyExpanded: expander[index],
                       backgroundColor: bgColor.withOpacity(0.18),
                       collapsedBackgroundColor: bgColor,
                       children: [

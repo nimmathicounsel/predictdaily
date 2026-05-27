@@ -36,7 +36,7 @@ class Block extends StatelessWidget {
     final secondColor = AppColors
         .indicatorColors[AppConstants.grahaIndicators[block.grahas[1]]];
 
-    final divideRatio = _calculateRatio(block);
+    final divideRatio = calculateRatio(block);
     const dividerWidth = 0.015;
 
     return SizedBox(
@@ -97,7 +97,7 @@ class Block extends StatelessWidget {
     );
   }
 
-  double _calculateRatio(
+  static double calculateRatio(
   PredictionBlock block,
 ) {
 
