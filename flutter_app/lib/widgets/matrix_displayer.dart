@@ -26,6 +26,7 @@ import '../models/prediction_matrix.dart';
 import '../services/bridge_service.dart';
 import 'date_processor.dart';
 import 'person_matrix.dart';
+import 'countdown_indicator.dart';
 
 class MatrixDisplayer extends StatefulWidget {
   final List<Person> persons;
@@ -137,7 +138,7 @@ class _MatrixDisplayerState extends State<MatrixDisplayer> {
 
   Widget _buildBody() {
     if (_loading) {
-      return const Center(child: CircularProgressIndicator());
+      return const CountDownIndicator();
     }
 
     if (_error != null) {
