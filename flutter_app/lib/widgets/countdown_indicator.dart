@@ -6,7 +6,7 @@ class CountDownIndicator extends StatefulWidget {
 
   const CountDownIndicator({
     super.key,
-    this.startSeconds = 60,
+    this.startSeconds = 70,
   });
 
   @override
@@ -33,7 +33,7 @@ class _CountDownIndicatorState
 
         if (_seconds > 0) {
           setState(() {
-            _seconds--;
+            _seconds = (_seconds - 1) <= 0 ? 30 : _seconds - 1;
           });
         } else {
           timer.cancel();
